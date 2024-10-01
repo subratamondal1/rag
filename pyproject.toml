@@ -13,3 +13,95 @@ ruff = "^0.6.8"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+# Exclude common directories and files that should not be linted or formatted.
+# These typically contain cached data, version control files, or compiled code.
+exclude = [
+    ".bzr",               # Bazaar version control directory
+    ".direnv",            # Environment management
+    ".eggs",              # Build artifacts
+    ".git",               # Git version control directory
+    ".git-rewrite",       # Temporary files during Git operations
+    ".hg",                # Mercurial version control directory
+    ".ipynb_checkpoints", # Jupyter notebook checkpoints
+    ".mypy_cache",        # mypy type checker cache
+    ".nox",               # nox testing sessions
+    ".pants.d",           # Pants build tool cache
+    ".pyenv",             # pyenv Python environment versions
+    ".pytest_cache",      # pytest cache for test results
+    ".pytype",            # pytype type checker cache
+    ".ruff_cache",        # Ruff's own cache directory
+    ".svn",               # Subversion version control directory
+    ".tox",               # tox virtualenvs for testing
+    ".venv",              # Virtual environment directory (common)
+    ".vscode",            # VS Code workspace settings
+    "__pypackages__",     # __pypackages__ for PEP 582 (local packages)
+    "_build",             # Build directories
+    "buck-out",           # Buck build tool output
+    "build",              # Build directories
+    "dist",               # Distribution directories
+    "node_modules",       # Node.js packages (npm/yarn)
+    "site-packages",      # Installed Python packages
+    "venv",               # Virtual environment directory (alternate)
+    "*.ipynb",            # Jupyter notebook files
+]
+
+# Set line-length and indent-width to match Black’s formatting style.
+# Line length is the maximum characters allowed in a line, and
+# indent width is the number of spaces for indentation.
+line-length = 88
+indent-width = 4
+
+# Assume Python 3.12 for compatibility and type-checking purposes.
+target-version = "py312"
+
+[tool.ruff.lint]
+# Enable certain linting rules by default:
+# - `F` enables Pyflakes checks for unused imports, undefined variables, etc.
+# - `E4` includes checks for imports (`pycodestyle` style errors).
+# - `E7` enables checks for syntax errors (`pycodestyle` style).
+# - `E9` includes checks for runtime errors (`pycodestyle` style).
+# - `I` enables rules for import order and formatting.
+# Unlike Flake8, Ruff doesn't enable all pycodestyle warnings (`W`)
+# or McCabe complexity checks (`C901`) by default.
+select = ["E4", "E7", "E9", "F", "I"]
+
+# No linting rules are disabled by default. You can add rules to ignore here if necessary.
+ignore = []
+
+# Specify rules that are fixable when using the `--fix` flag.
+# `ALL` indicates all enabled rules are fixable.
+fixable = ["ALL"]
+
+# Specify any rules that should not be fixable.
+unfixable = []
+
+# Allow unused variables if they are prefixed with underscores.
+# This is often used for variables meant to be placeholders or ignored.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+# Set string quote style to double quotes for consistency with Black.
+quote-style = "double"
+
+# Indent with spaces (instead of tabs) to maintain consistency with Black.
+indent-style = "space"
+
+# Respect magic trailing commas (commas at the end of data structures),
+# which are often used to support cleaner diffs in version control.
+skip-magic-trailing-comma = false
+
+# Auto-detect the appropriate line ending style (`\n` for Unix, `\r\n` for Windows).
+line-ending = "auto"
+
+# Configure auto-formatting of code examples within docstrings.
+# This includes formatting for Markdown, reStructuredText, and doctests.
+# This feature is currently disabled by default but may become opt-out
+# in future versions of Ruff.
+docstring-code-format = false
+
+# Set the line length limit used when formatting code snippets in docstrings.
+# This setting is only relevant when `docstring-code-format` is enabled.
+# A dynamic value adjusts the line length based on context.
+docstring-code-line-length = "dynamic"
